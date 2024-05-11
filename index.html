@@ -1,12 +1,169 @@
-<html>
-    <h1>
-        Hey, I'm Brian
-    </h1>
-    <body>
-        <h2>This is ButtQuack</h2>
-        <p>
-            <img src="bxduck.jpg" />
-        </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Portfolio</title>
+    <style>
+        /* CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* Matrix code green */
+            color: #fff; /* White text */
+        }
+        header {
+            background-color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+            border-bottom: 2px solid #00ff00; /* Neon green border */
+        }
+        header h1 a {
+            text-decoration: none; /* Remove underline */
+            color: #00ff00; /* Neon green color */
+        }
+        header .buttons {
+            margin-right: 20px; /* Add margin to the right */
+        }
+        header button {
+            margin-left: 10px; /* space between buttons */
+            background-color: #00ff00; /* Neon green color */
+            color: #0f0f0f; /* Black text */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        header button:hover {
+            background-color: #009900; /* Darker green on hover */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f0f0f0; /* Light gray background */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+        .about-me {
+            text-align: left; /* Align text to the left */
+            margin-bottom: 20px;
+            background-color: #f0f0f0; /* Light gray background */
+            padding: 20px; /* Add padding */
+            border-radius: 5px; /* Rounded corners */
+        }
+        .about-me img {
+            display: block; /* Make the image a block element */
+            margin: 0 auto 20px; /* Center the image horizontally and add margin below */
+            max-width: 200px; /* Adjust image size */
+            height: auto;
+        }
+        .about-me h2 {
+            color: #000; /* Neon green color */
+            font-size: 24px; /* Increase font size */
+            margin-bottom: 10px; /* Add margin below the heading */
+        }
+        .about-me p {
+            color: #000; /* Black text color */
+            line-height: 1.6; /* Increase line height for better readability */
+        }
+        .project {
+            background-color: #ffffff; /* White background for projects */
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .project h2 {
+            color: #333;
+        }
+        .project p {
+            color: #666;
+        }
+        .certifications {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .certifications h2 {
+            color: #333; /* Darker text color */
+            font-size: 28px; /* Increase font size */
+            margin-bottom: 20px; /* Add margin below the heading */
+        }
+        .certifications img {
+            width: 200px; /* Set image width */
+            height: auto;
+            cursor: pointer;
+            border-radius: 5px; /* Rounded corners */
+            margin-bottom: 20px; /* Add margin below each image */
+        }
+        .projects {
+            text-align: left;
+            margin-top: 60px;
+        }
+        .projects h2 {
+            color: #333; /* Darker text color */
+            font-size: 28px; /* Increase font size */
+            margin-bottom: 20px; /* Add margin below the heading */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="#">Brian Latchman</a></h1> <!-- Make name a link -->
+        <div class="buttons">
+            <!-- buttons here -->
+            <button onclick="scrollToProjects()">Projects</button>
+            <button onclick="scrollToCertifications()">Certifications</button>
+            <button>Experience</button>
+            <button>Resume</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="about-me">
+            <img src="bxduck.jpg" alt="Picture">
+            <h2>About Me</h2>
+            <p>As someone new to the field of cybersecurity, my strengths lie in my eagerness to learn, strong problem-solving skills, and attention to detail. I value integrity, confidentiality, and the protection of personal and organizational data. What interests me most about a career in cybersecurity is the constant challenge and the opportunity to make a significant impact by safeguarding critical information. With my developing strengths, dedication to upholding values, and growing interest in cybersecurity, I aim to support the security goals of organizations by continuously improving my knowledge, collaborating with experienced professionals, and contributing to the implementation of effective security measures.</p>
+            <div class="projects">
+                <h2>Projects</h2>
+            </div>
+        </div>
+        <div id="projects" class="project">
+            <h2>Project 1: Network Security Analysis</h2>
+            <p>This project involved analyzing network traffic for potential security threats and vulnerabilities using tools such as Wireshark and Snort.</p>
+            <p>Skills demonstrated: Network packet analysis, Intrusion Detection System (IDS) setup and configuration.</p>
+        </div>
+        <div class="project">
+            <h2>Project 2: Web Application Penetration Testing</h2>
+            <p>Conducted penetration testing on a web application to identify and exploit vulnerabilities such as SQL injection and cross-site scripting (XSS).</p>
+            <p>Skills demonstrated: Web application security testing, Ethical hacking techniques.</p>
+        </div>
+        <!-- Add more projects as needed -->
         
-    </body>
+        <!-- Certifications Section -->
+        <div class="certifications">
+            <h2>Certifications</h2>
+            <a href="https://www.credly.com/badges/88fb82a6-47a1-42b8-b75c-18709b08c642/public_url" target="_blank">
+                <img src="Google Cert.png" alt="Certification 1">
+            </a>
+            <a href="https://example.com/certification2" target="_blank">
+                <img src="CompTIA Security+.png" alt="Certification 2">
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function scrollToProjects() {
+            var projectsSection = document.getElementById('projects');
+            projectsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToCertifications() {
+            var certificationsSection = document.querySelector('.certifications');
+            certificationsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
 </html>
