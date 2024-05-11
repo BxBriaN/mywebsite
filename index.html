@@ -108,6 +108,19 @@
             font-size: 28px; /* Increase font size */
             margin-bottom: 20px; /* Add margin below the heading */
         }
+        /* Adjustments for smaller screens */
+        @media screen and (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            header .buttons {
+                margin: 20px 0; /* Adjust margin for buttons */
+            }
+            header button {
+                margin: 5px 0; /* Adjust margin for buttons */
+            }
+        }
     </style>
 </head>
 <body>
