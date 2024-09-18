@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff; 
+            background-color: #ffffff;
             color: #333; /* Black text */
         }
         header {
@@ -95,6 +95,16 @@
             color: #666;
             line-height: 1.6;
         }
+        .project pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+        .project code {
+            font-family: Consolas, "Courier New", monospace;
+            color: #c7254e;
+        }
         .certifications {
             text-align: center;
             margin-bottom: 20px;
@@ -145,9 +155,9 @@
             }
         }
         footer {
-            text-align: left; /* Changed from 'center' to 'left' */
-            background-color: #333; /* Match header background */
-            color: #00ff00; /* Neon green text */
+            text-align: left;
+            background-color: #333;
+            color: #00ff00;
             padding: 20px;
             margin-top: 20px;
         }
@@ -159,7 +169,7 @@
         <div class="buttons">
             <button onclick="scrollToProjects()">Projects</button>
             <button onclick="scrollToCertifications()">Certifications</button>
-            <button>Resume</button>
+            <button onclick="location.href='YourResume.pdf'">Resume</button>
         </div>
     </header>
     <div class="container">
@@ -180,9 +190,12 @@
             <div class="project">
                 <h2>Home Lab Setup and Use Cases</h2>
                 <p>
-                    I've transformed an old Mac desktop into a powerful home server running various cybersecurity tools. My home lab features network segmentation, multiple virtual machines, and serves as a testing ground for penetration testing exercises using my Flipper Zero device.
+                    I've transformed an old Mac desktop and a <strong>Beelink Mini S12 Pro</strong> mini PC into a powerful home lab environment. The Mac server functions as a media server, personal NAS, and cybersecurity lab. Using the <strong>arr stack</strong> alongside Plex, I manage and stream media efficiently. I utilize a Docker Compose file to orchestrate and deploy these services seamlessly. Torrents are securely handled through a VPN to ensure privacy and security. The Beelink Mini S12 Pro is integrated into my home lab for additional testing and experimentation, allowing me to expand my capabilities and explore new technologies.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Home lab setup, network segmentation, virtualization, penetration testing.</p>
+                <p>
+                    The home lab runs various cybersecurity tools and features network segmentation with multiple virtual machines, serving as a testing ground for penetration testing exercises using my Flipper Zero device.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Home lab setup, media server configuration, NAS management, Docker Compose, VPN configuration, arr stack implementation, network segmentation, virtualization, penetration testing, hardware integration.</p>
             </div>
 
             <!-- Project 2 -->
@@ -198,21 +211,38 @@
             <div class="project">
                 <h2>Custom Discord Bot Development</h2>
                 <p>
-                    I've developed a custom Discord bot with functionalities like rotating status messages and a <code>/sb</code> command for sending images. The bot enhances user engagement and provides utility within Discord servers. I've implemented features using Discord's API and included code snippets and documentation.
+                    I've developed a custom Discord bot with functionalities like rotating status messages and a <code>/sb</code> command for sending images. The bot enhances user engagement and provides utility within Discord servers.
+                </p>
+                <h3>Code Snippet:</h3>
+                <pre><code>
+// Example of rotating status messages
+import discord
+from discord.ext import tasks
+
+client = discord.Client()
+
+status_messages = ["Hello World!", "Bot at your service.", "Securing the server."]
+
+@tasks.loop(minutes=60)
+async def change_status():
+    await client.change_presence(activity=discord.Game(next(status_cycle)))
+
+status_cycle = iter(status_messages)
+
+@client.event
+async def on_ready():
+    change_status.start()
+    print(f'Logged in as {client.user}')
+
+client.run('YOUR_BOT_TOKEN')
+                </code></pre>
+                <p>
+                    You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html" target="_blank">documentation</a>.
                 </p>
                 <p><strong>Skills Demonstrated:</strong> Python programming, Discord API, bot development, automation.</p>
             </div>
 
             <!-- Project 4 -->
-            <div class="project">
-                <h2>Media Server Setup</h2>
-                <p>
-                    Set up and maintain a personal media server, handling all aspects from hardware and software configurations to networking. Ensured optimal security and performance through proper network configurations, firewall settings, and regular updates.
-                </p>
-                <p><strong>Skills Demonstrated:</strong> Server setup, networking configurations, security hardening, system administration.</p>
-            </div>
-
-            <!-- Project 5 -->
             <div class="project">
                 <h2>GL.iNet GL-AXT1800 Router Configuration</h2>
                 <p>
@@ -221,7 +251,7 @@
                 <p><strong>Skills Demonstrated:</strong> Advanced router configuration, VPN setup, firewall management, DNS sinkholing, network security enhancement.</p>
             </div>
 
-            <!-- Project 6 -->
+            <!-- Project 5 -->
             <div class="project">
                 <h2>Website Development and Coding</h2>
                 <p>
