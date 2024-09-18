@@ -51,13 +51,13 @@
     
     <h2>Introduction</h2>
     <p>
-        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages, image sharing commands, and interactive utilities.
+        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages, image-sharing commands, and interactive utilities.
     </p>
     
     <h2>Features</h2>
     <ul>
         <li><strong>Rotating Status Messages:</strong> The bot changes its status message every 5 seconds to keep the server environment dynamic and engaging.</li>
-        <li><strong><code>/sb</code> Command:</strong> Sends a random image from a specified directory.</li>
+        <li><strong><code>/sb</code> Command:</strong> Sends a random speech bubble meme from a specified directory.</li>
         <li><strong><code>/bx</code> Command:</strong> Shares a link to a YouTube channel.</li>
         <li><strong><code>/dudu</code> Command:</strong> Shares a link to another YouTube channel.</li>
         <li><strong><code>/sike</code> Command:</strong> Sends a playful message.</li>
@@ -68,38 +68,60 @@
     <h2>Commands and Usage</h2>
     
     <h3>Rotating Status Messages</h3>
-    <p>The bot automatically rotates its status messages every 5 seconds. The statuses include playful messages to entertain users. No user intervention is required.</p>
+    <p>
+        The bot automatically rotates its status messages every 5 seconds. The statuses include playful messages to entertain users. No user intervention is required.
+    </p>
+    <p><em>Note:</em> The status messages are customizable and can be adjusted to suit the server's audience. Please ensure that the content is appropriate for your community.</p>
+    <h4>Code Snippet:</h4>
+    <pre><code class="language-python">
+@tasks.loop(seconds=5)
+async def change_status():
+    statuses = ["Example1", "Example2", "Example3", "Example4"]
+    await bot.change_presence(activity=discord.Game(random.choice(statuses)))
+    </code></pre>
     
     <h3><code>/sb</code> Command</h3>
-    <p>Sends a random image from the bot's <code>images</code> directory.</p>
+    <p>
+        Sends a random speech bubble meme from the bot's <code>images</code> directory.
+    </p>
     <pre><code>/sb</code></pre>
-    <p>Usage example:</p>
+    <p><strong>Usage Example:</strong></p>
     <pre><code>/sb</code></pre>
     
     <h3><code>/bx</code> Command</h3>
-    <p>Sends a link to the YouTube channel "bxbrian".</p>
+    <p>
+        Shares a link to the YouTube channel "<strong>bxbrian</strong>".
+    </p>
     <pre><code>/bx</code></pre>
     
     <h3><code>/dudu</code> Command</h3>
-    <p>Sends a link to the YouTube channel "dulonkk".</p>
+    <p>
+        Shares a link to the YouTube channel "<strong>dulonkk</strong>".
+    </p>
     <pre><code>/dudu</code></pre>
     
     <h3><code>/sike</code> Command</h3>
-    <p>Sends a playful message to the user.</p>
+    <p>
+        Sends a playful message to the user.
+    </p>
     <pre><code>/sike</code></pre>
     
     <h3><code>!info</code> Command</h3>
-    <p>Displays information about the current server.</p>
+    <p>
+        Displays information about the current server.
+    </p>
     <pre><code>!info</code></pre>
     
     <h3><code>!poll</code> Command</h3>
-    <p>Creates a poll with up to two options.</p>
-    <p>Usage examples:</p>
+    <p>
+        Creates a poll with up to two options. Users can vote by reacting with ✅ or ❌.
+    </p>
+    <p><strong>Usage Examples:</strong></p>
     <ul>
-        <li>Yes/No poll:
+        <li><strong>Yes/No Poll:</strong>
             <pre><code>!poll "Is the bot helpful?"</code></pre>
         </li>
-        <li>Custom options:
+        <li><strong>Custom Options Poll:</strong>
             <pre><code>!poll "Which feature do you like?" "Status Rotation" "Image Sharing"</code></pre>
         </li>
     </ul>
@@ -107,16 +129,20 @@
     <h2>Code Overview</h2>
     
     <h3>Rotating Status Messages</h3>
-    <p>The bot uses a task loop to change its status every 5 seconds:</p>
+    <p>
+        The bot uses a task loop to change its status every 5 seconds:
+    </p>
     <pre><code class="language-python">
 @tasks.loop(seconds=5)
 async def change_status():
-    statuses = ["With Dylan's Mom", "With Ricardo's Mom", "With Jaden's Dad", "With Victor in the bed 👹"]
+    statuses = ["Example1", "Example2", "Example3", "Example4"]
     await bot.change_presence(activity=discord.Game(random.choice(statuses)))
     </code></pre>
     
     <h3><code>/sb</code> Command Implementation</h3>
-    <p>The bot sends a random image from the <code>images</code> directory when the <code>/sb</code> command is used:</p>
+    <p>
+        The bot sends a random speech bubble meme when the <code>/sb</code> command is used:
+    </p>
     <pre><code class="language-python">
 @bot.tree.command(name="sb")
 async def send_image(interaction: discord.Interaction):
@@ -132,7 +158,9 @@ async def send_image(interaction: discord.Interaction):
     </code></pre>
     
     <h3><code>!poll</code> Command Implementation</h3>
-    <p>The bot creates a poll with reactions for users to vote:</p>
+    <p>
+        The bot creates a poll with reactions for users to vote:
+    </p>
     <pre><code class="language-python">
 @bot.command()
 async def poll(ctx, question, option1=None, option2=None):
@@ -147,12 +175,15 @@ async def poll(ctx, question, option1=None, option2=None):
     <h2>Notes</h2>
     <ul>
         <li>The bot uses both slash commands (prefixed with <code>/</code>) and traditional commands (prefixed with <code>!</code>).</li>
-        <li>Ensure the bot has the necessary permissions to read messages and add reactions.</li>
+        <li>Ensure the bot has the necessary permissions to read messages, send messages, and add reactions.</li>
         <li>Some commands are designed for fun and may reference inside jokes or specific individuals.</li>
+        <li>The <code>statuses</code> list and speech bubble images can be customized to match the theme of your server.</li>
     </ul>
     
     <h2>Future Enhancements</h2>
-    <p>Planned features for future updates include:</p>
+    <p>
+        Planned features for future updates include:
+    </p>
     <ul>
         <li>Adding more interactive and utility commands.</li>
         <li>Integrating external APIs for dynamic content.</li>
