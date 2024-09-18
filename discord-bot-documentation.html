@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discord Bot Documentation</title>
+    <style>
+        /* Basic styles for the documentation page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #ffffff;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            font-family: Consolas, "Courier New", monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+        a {
+            color: #0066cc;
+        }
+        .back-button {
+            margin-bottom: 20px;
+        }
+        .back-button a {
+            text-decoration: none;
+            color: #00ff00;
+            background-color: #333;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .back-button a:hover {
+            background-color: #009900;
+        }
+    </style>
+</head>
+<body>
+    <div class="back-button">
+        <a href="index.html">&larr; Back to Home</a>
+    </div>
+    <h1>Custom Discord Bot Documentation</h1>
+    
+    <h2>Introduction</h2>
+    <p>
+        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages and a <code>/sb</code> command for sending images.
+    </p>
+    
+    <h2>Features</h2>
+    <ul>
+        <li><strong>Rotating Status Messages:</strong> The bot changes its status message periodically to keep the server environment dynamic and engaging.</li>
+        <li><strong><code>/sb</code> Command:</strong> Users can use this command to receive a random image or a specific image based on parameters.</li>
+    </ul>
+    
+    <h2>Technologies Used</h2>
+    <ul>
+        <li>Python 3.x</li>
+        <li>Discord.py library</li>
+        <li>AsyncIO for asynchronous programming</li>
+    </ul>
+    
+    <h2>Setup and Installation</h2>
+    <p>Follow these steps to set up the bot on your own Discord server:</p>
+    <ol>
+        <li>Clone the repository from <a href="https://github.com/yourusername/your-discord-bot-repo" target="_blank">GitHub</a>.</li>
+        <li>Install the required dependencies:
+            <pre><code>pip install discord.py</code></pre>
+        </li>
+        <li>Create a new bot application on the <a href="https://discord.com/developers/applications" target="_blank">Discord Developer Portal</a> and obtain your bot token.</li>
+        <li>Replace the placeholder <code>'YOUR_BOT_TOKEN'</code> in the code with your actual bot token.</li>
+        <li>Run the bot:
+            <pre><code>python bot.py</code></pre>
+        </li>
+    </ol>
+    
+    <h2>Code Overview</h2>
+    <h3>Rotating Status Messages</h3>
+    <p>The following code demonstrates how the bot rotates its status messages:</p>
+    <pre><code class="language-python">
+import discord
+from discord.ext import tasks, commands
+
+bot = commands.Bot(command_prefix='!')
+
+status_messages = ["Hello World!", "Bot at your service.", "Securing the server."]
+
+@tasks.loop(minutes=60)
+async def change_status():
+    await bot.change_presence(activity=discord.Game(next(status_cycle)))
+
+status_cycle = iter(status_messages)
+
+@bot.event
+async def on_ready():
+    change_status.start()
+    print(f'Logged in as {bot.user}')
+
+bot.run('YOUR_BOT_TOKEN')
+    </code></pre>
+    
+    <h3><code>/sb</code> Command Implementation</h3>
+    <p>This command sends an image when a user types <code>/sb</code> in the chat.</p>
+    <pre><code class="language-python">
+@bot.command()
+async def sb(ctx):
+    image_path = 'path/to/your/image.jpg'
+    await ctx.send(file=discord.File(image_path))
+    </code></pre>
+    
+    <h2>Usage</h2>
+    <h3>Rotating Status Messages</h3>
+    <p>The bot automatically rotates its status messages every hour. No user intervention is required.</p>
+    
+    <h3><code>/sb</code> Command</h3>
+    <p>To use the <code>/sb</code> command, simply type:</p>
+    <pre><code>/sb</code></pre>
+    <p>The bot will respond by sending the configured image.</p>
+    
+    <h2>Future Enhancements</h2>
+    <p>Planned features for future updates include:</p>
+    <ul>
+        <li>Adding more interactive commands.</li>
+        <li>Integrating with external APIs for dynamic content.</li>
+        <li>Implementing user-specific settings.</li>
+    </ul>
+    
+    <h2>Contact Information</h2>
+    <p>If you have any questions or suggestions, feel free to contact me at <a href="mailto:your.email@example.com">your.email@example.com</a>.</p>
+    
+    <div class="back-button">
+        <a href="index.html">&larr; Back to Home</a>
+    </div>
+</body>
+</html>
