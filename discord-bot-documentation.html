@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Discord Bot Documentation</title>
+    <title>Custom Discord Bot Documentation</title>
     <style>
         /* Basic styles for the documentation page */
         body {
@@ -51,64 +51,112 @@
     
     <h2>Introduction</h2>
     <p>
-        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages and a <code>/sb</code> command for sending images.
+        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages, image sharing commands, and interactive utilities.
     </p>
     
     <h2>Features</h2>
     <ul>
-        <li><strong>Rotating Status Messages:</strong> The bot changes its status message periodically to keep the server environment dynamic and engaging.</li>
-        <li><strong><code>/sb</code> Command:</strong> Users can use this command to receive a random image or a specific image based on parameters.</li>
+        <li><strong>Rotating Status Messages:</strong> The bot changes its status message every 5 seconds to keep the server environment dynamic and engaging.</li>
+        <li><strong><code>/sb</code> Command:</strong> Sends a random image from a specified directory.</li>
+        <li><strong><code>/bx</code> Command:</strong> Shares a link to a YouTube channel.</li>
+        <li><strong><code>/dudu</code> Command:</strong> Shares a link to another YouTube channel.</li>
+        <li><strong><code>/sike</code> Command:</strong> Sends a playful message.</li>
+        <li><strong><code>!info</code> Command:</strong> Provides information about the server.</li>
+        <li><strong><code>!poll</code> Command:</strong> Creates a poll with customizable options.</li>
+    </ul>
+    
+    <h2>Commands and Usage</h2>
+    
+    <h3>Rotating Status Messages</h3>
+    <p>The bot automatically rotates its status messages every 5 seconds. The statuses include playful messages to entertain users. No user intervention is required.</p>
+    
+    <h3><code>/sb</code> Command</h3>
+    <p>Sends a random image from the bot's <code>images</code> directory.</p>
+    <pre><code>/sb</code></pre>
+    <p>Usage example:</p>
+    <pre><code>/sb</code></pre>
+    
+    <h3><code>/bx</code> Command</h3>
+    <p>Sends a link to the YouTube channel "bxbrian".</p>
+    <pre><code>/bx</code></pre>
+    
+    <h3><code>/dudu</code> Command</h3>
+    <p>Sends a link to the YouTube channel "dulonkk".</p>
+    <pre><code>/dudu</code></pre>
+    
+    <h3><code>/sike</code> Command</h3>
+    <p>Sends a playful message to the user.</p>
+    <pre><code>/sike</code></pre>
+    
+    <h3><code>!info</code> Command</h3>
+    <p>Displays information about the current server.</p>
+    <pre><code>!info</code></pre>
+    
+    <h3><code>!poll</code> Command</h3>
+    <p>Creates a poll with up to two options.</p>
+    <p>Usage examples:</p>
+    <ul>
+        <li>Yes/No poll:
+            <pre><code>!poll "Is the bot helpful?"</code></pre>
+        </li>
+        <li>Custom options:
+            <pre><code>!poll "Which feature do you like?" "Status Rotation" "Image Sharing"</code></pre>
+        </li>
     </ul>
     
     <h2>Code Overview</h2>
+    
     <h3>Rotating Status Messages</h3>
-    <p>The following code demonstrates how the bot rotates its status messages:</p>
+    <p>The bot uses a task loop to change its status every 5 seconds:</p>
     <pre><code class="language-python">
-import discord
-from discord.ext import tasks, commands
-
-bot = commands.Bot(command_prefix='!')
-
-status_messages = ["Hello World!", "Bot at your service.", "Securing the server."]
-
-@tasks.loop(minutes=60)
+@tasks.loop(seconds=5)
 async def change_status():
-    await bot.change_presence(activity=discord.Game(next(status_cycle)))
-
-status_cycle = iter(status_messages)
-
-@bot.event
-async def on_ready():
-    change_status.start()
-    print(f'Logged in as {bot.user}')
-
-bot.run('YOUR_BOT_TOKEN')
+    statuses = ["With Dylan's Mom", "With Ricardo's Mom", "With Jaden's Dad", "With Victor in the bed 👹"]
+    await bot.change_presence(activity=discord.Game(random.choice(statuses)))
     </code></pre>
     
     <h3><code>/sb</code> Command Implementation</h3>
-    <p>This command sends an image when a user types <code>/sb</code> in the chat.</p>
+    <p>The bot sends a random image from the <code>images</code> directory when the <code>/sb</code> command is used:</p>
     <pre><code class="language-python">
-@bot.command()
-async def sb(ctx):
-    image_path = 'path/to/your/image.jpg'
-    await ctx.send(file=discord.File(image_path))
+@bot.tree.command(name="sb")
+async def send_image(interaction: discord.Interaction):
+    image_dir = 'images'
+    images = os.listdir(image_dir)
+    if not images:
+        await interaction.response.send_message('No images found.', ephemeral=True)
+        return
+
+    image_file = random.choice(images)
+    image_path = os.path.join(image_dir, image_file)
+    await interaction.response.send_message(file=discord.File(image_path))
     </code></pre>
     
-    <h2>Usage</h2>
-    <h3>Rotating Status Messages</h3>
-    <p>The bot automatically rotates its status messages every 5 seconds. No user intervention is required.</p>
+    <h3><code>!poll</code> Command Implementation</h3>
+    <p>The bot creates a poll with reactions for users to vote:</p>
+    <pre><code class="language-python">
+@bot.command()
+async def poll(ctx, question, option1=None, option2=None):
+    if option1 is None and option2 is None:
+        message = await ctx.send(f"**New poll:** {question}\n✅ = Yes\n❌ = No")
+    else:
+        message = await ctx.send(f"**New poll:** {question}\n✅ = {option1}\n❌ = {option2}")
+    await message.add_reaction('✅')
+    await message.add_reaction('❌')
+    </code></pre>
     
-    <h3><code>/sb</code> Command</h3>
-    <p>To use the <code>/sb</code> command, simply type:</p>
-    <pre><code>/sb</code></pre>
-    <p>The bot will respond by sending the configured image.</p>
+    <h2>Notes</h2>
+    <ul>
+        <li>The bot uses both slash commands (prefixed with <code>/</code>) and traditional commands (prefixed with <code>!</code>).</li>
+        <li>Ensure the bot has the necessary permissions to read messages and add reactions.</li>
+        <li>Some commands are designed for fun and may reference inside jokes or specific individuals.</li>
+    </ul>
     
     <h2>Future Enhancements</h2>
     <p>Planned features for future updates include:</p>
     <ul>
-        <li>Adding more interactive commands.</li>
-        <li>Integrating with external APIs for dynamic content.</li>
-        <li>Implementing user-specific settings.</li>
+        <li>Adding more interactive and utility commands.</li>
+        <li>Integrating external APIs for dynamic content.</li>
+        <li>Implementing user-specific settings and preferences.</li>
     </ul>
     
     <div class="back-button">
