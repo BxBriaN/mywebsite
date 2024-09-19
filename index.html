@@ -168,7 +168,7 @@
         <div class="buttons">
             <button onclick="scrollToProjects()">Projects</button>
             <button onclick="scrollToCertifications()">Certifications</button>
-            <button onclick="location.href='Resume.pdf'">Resume</button>
+            <button onclick="location.href='resume.html'">Resume</button>
         </div>
     </header>
     <div class="container">
@@ -214,52 +214,52 @@
                 </p>
                 <h3>Code Snippet:</h3>
                 <pre><code>
-// Import necessary modules
-import discord
-from discord.ext import commands, tasks
-import os
-import random
+    # Import necessary modules
+    import discord
+    from discord.ext import commands, tasks
+    import os
+    import random
 
-bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+    bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
-# List of status messages
-statuses = ["Playing Chess", "Listening to Music", "Coding in Python", "Chatting with Users"]
+    # List of status messages
+    statuses = ["Playing Chess", "Listening to Music", "Coding in Python", "Chatting with Users"]
 
-@bot.event
-async def on_ready():
-    print("Bot is up and ready!")
-    change_status.start()
+    @bot.event
+    async def on_ready():
+        print("Bot is up and ready!")
+        change_status.start()
 
-# Rotate status messages every 5 seconds
-@tasks.loop(seconds=5)
-async def change_status():
-    await bot.change_presence(activity=discord.Game(random.choice(statuses)))
+    # Rotate status messages every 5 seconds
+    @tasks.loop(seconds=5)
+    async def change_status():
+        await bot.change_presence(activity=discord.Game(random.choice(statuses)))
 
-# /sb command to send a random image
-@bot.tree.command(name="sb")
-async def send_image(interaction: discord.Interaction):
-    image_dir = 'images'
-    images = os.listdir(image_dir)
-    if not images:
-        await interaction.response.send_message('No images found.', ephemeral=True)
-        return
+    # /sb command to send a random image
+    @bot.tree.command(name="sb")
+    async def send_image(interaction: discord.Interaction):
+        image_dir = 'images'
+        images = os.listdir(image_dir)
+        if not images:
+            await interaction.response.send_message('No images found.', ephemeral=True)
+            return
 
-    image_file = random.choice(images)
-    image_path = os.path.join(image_dir, image_file)
-    await interaction.response.send_message(file=discord.File(image_path))
+        image_file = random.choice(images)
+        image_path = os.path.join(image_dir, image_file)
+        await interaction.response.send_message(file=discord.File(image_path))
 
-# !poll command to create a poll
-@bot.command()
-async def poll(ctx, question, option1=None, option2=None):
-    if option1 is None and option2 is None:
-        message = await ctx.send(f"**New poll:** {question}\n✅ = Yes\n❌ = No")
-    else:
-        message = await ctx.send(f"**New poll:** {question}\n✅ = {option1}\n❌ = {option2}")
-    await message.add_reaction('✅')
-    await message.add_reaction('❌')
+    # !poll command to create a poll
+    @bot.command()
+    async def poll(ctx, question, option1=None, option2=None):
+        if option1 is None and option2 is None:
+            message = await ctx.send(f"**New poll:** {question}\n✅ = Yes\n❌ = No")
+        else:
+            message = await ctx.send(f"**New poll:** {question}\n✅ = {option1}\n❌ = {option2}")
+        await message.add_reaction('✅')
+        await message.add_reaction('❌')
 
-# Run the bot with your token
-bot.run('YOUR_BOT_TOKEN')
+    # Run the bot with your token
+    bot.run('YOUR_BOT_TOKEN')
                 </code></pre>
                 <p>
                     You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.
