@@ -20,15 +20,16 @@
         .back-button {
             margin-top: 20px;
         }
-        .back-button a {
-            text-decoration: none;
-            color: #00ff00;
-            background-color: #333;
-            padding: 10px 15px;
+        .back-button button {
+            background-color: #00ff00;
+            color: #0f0f0f;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
             border-radius: 5px;
-            display: inline-block;
         }
-        .back-button a:hover {
+        .back-button button:hover {
             background-color: #009900;
         }
         #pdf-viewer {
@@ -59,16 +60,14 @@
         <div class="print-button">
             <button onclick="printResume()">Print Resume</button>
         </div>
-        <iframe id="pdf-viewer" src="Resume.pdf"></iframe>
+        <iframe id="pdf-viewer" src="YourResume.pdf"></iframe>
         <div class="back-button">
-            <a href="index.html">&larr; Back to Home</a>
+            <button onclick="location.href='index.html'">&larr; Back to Home</button>
         </div>
     </div>
     <script>
         function printResume() {
-            var pdfFrame = document.getElementById('pdf-viewer');
-            pdfFrame.focus();
-            pdfFrame.contentWindow.print();
+            window.open('YourResume.pdf', '_blank');
         }
     </script>
 </body>
