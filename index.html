@@ -262,43 +262,75 @@
             <div class="project">
                 <h2>Custom Discord Bot Development</h2>
                 <p>
-                    I developed a custom <strong>Discord bot</strong> in Python using the <code>discord.py</code> library. The bot includes rotating status messages that cycle automatically using a background task loop, a <code>/sb</code> slash command that picks and sends a random image from a local directory, and a <code>!poll</code> command that lets users create quick yes/no or two-option polls with reaction-based voting. Building the bot taught me about asynchronous programming, working with external APIs, handling user interactions, and structuring a Python project for ongoing use.
+                    What started as a simple bot with rotating statuses has grown into a full-featured Discord application. The bot is built in Python using <code>discord.py</code> with <code>app_commands</code> for slash command support, and integrates with the <strong>OpenAI API</strong> to answer questions directly in chat via a <code>/ask</code> command. It includes an API call limiter to prevent runaway usage, along with a set of utility and fun commands like <code>/sb</code> for sending random images, reaction-based polls, and quick link commands.
+                </p>
+                <p>
+                    The most substantial feature is a fully interactive <strong>D&amp;D Party Inventory System</strong>, launched with a single <code>/inv</code> slash command. It posts a live embed panel that anyone in the server can interact with using buttons and dropdown menus — no commands needed after that. Features include:
+                </p>
+                <ul>
+                    <li><strong>Compendium search</strong> — searches a local <code>compendium.xml</code> file parsed with Python's <code>xml.etree.ElementTree</code>, with paginated results and a dropdown to select and add items directly to inventory</li>
+                    <li><strong>Custom item creation</strong> — modal form to add homebrew or custom items with name, quantity, cost, weight, and description</li>
+                    <li><strong>Item removal</strong> — dropdown picker with quantity control, or remove all at once</li>
+                    <li><strong>Item details</strong> — view full stats and description for any item in the inventory</li>
+                    <li><strong>Spell lookup</strong> — search the compendium's spell list with paginated results and full spell detail embeds including level, school, cast time, range, components, and description</li>
+                    <li><strong>Gold tracking</strong> — separate party gold and per-player gold wallets, with transfer between the two and a live grand total on the panel</li>
+                </ul>
+                <p>
+                    All inventory data is stored in JSON files sharded by guild ID, so each Discord server gets its own isolated inventory. The entire UI is built with Discord's component system — modals, select menus, and button rows — keeping everything inside Discord without needing any external dashboard.
                 </p>
                 <h3>Code Snippet:</h3>
                 <pre><code>
-    import discord
-    from discord.ext import commands, tasks
-    import os
-    import random
+    # D&D Inventory panel — launched with /inv
+    # Posts a persistent embed with buttons for full inventory management
 
-    bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+    @bot.tree.command(name="inv", description="Open the party inventory panel")
+    async def inv(interaction: discord.Interaction):
+        await interaction.response.send_message(
+            embed=_make_embed(interaction.guild_id),
+            view=InventoryView(interaction.guild_id)
+        )
 
-    statuses = ["Playing Chess", "Listening to Music", "Coding in Python", "Chatting with Users"]
+    class InventoryView(discord.ui.View):
+        def __init__(self, guild_id: int):
+            super().__init__(timeout=None)
+            self.guild_id = guild_id
 
-    @bot.event
-    async def on_ready():
-        print("Bot is up and ready!")
-        change_status.start()
+        @discord.ui.button(label="📖 Add from Compendium", style=discord.ButtonStyle.primary, row=0)
+        async def add_compendium(self, interaction: discord.Interaction, button: discord.ui.Button):
+            await interaction.response.send_modal(
+                CompendiumSearchModal(self.guild_id, interaction.message)
+            )
 
-    @tasks.loop(seconds=5)
-    async def change_status():
-        await bot.change_presence(activity=discord.Game(random.choice(statuses)))
+        @discord.ui.button(label="🪙 Gold", style=discord.ButtonStyle.secondary, row=1)
+        async def gold(self, interaction: discord.Interaction, button: discord.ui.Button):
+            await interaction.response.send_message(
+                "What would you like to do with gold?",
+                view=GoldActionView(self.guild_id, interaction.message),
+                ephemeral=True,
+            )
 
-    @bot.tree.command(name="sb")
-    async def send_image(interaction: discord.Interaction):
-        image_dir = 'images'
-        images = os.listdir(image_dir)
-        if not images:
-            await interaction.response.send_message('No images found.', ephemeral=True)
+        @discord.ui.button(label="✨ Spell Lookup", style=discord.ButtonStyle.primary, row=2)
+        async def spell_lookup(self, interaction: discord.Interaction, button: discord.ui.Button):
+            await interaction.response.send_modal(SpellSearchModal())
+
+    # /ask command with OpenAI integration and API call limiter
+    @bot.tree.command(name="ask", description="Ask ChatGPT a question")
+    @app_commands.describe(question="What do you want to ask?")
+    async def ask(interaction: discord.Interaction, question: str):
+        global api_calls
+        if api_calls >= MAX_API_CALLS:
+            await interaction.response.send_message("API call limit reached.", ephemeral=True)
             return
-        image_file = random.choice(images)
-        image_path = os.path.join(image_dir, image_file)
-        await interaction.response.send_message(file=discord.File(image_path))
+        response = openai.Completion.create(
+            engine="text-davinci-003", prompt=question, max_tokens=150
+        )
+        api_calls += 1
+        await interaction.response.send_message(response.choices[0].text.strip())
 
     bot.run('YOUR_BOT_TOKEN')
                 </code></pre>
                 <p>You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.</p>
-                <p><strong>Skills Demonstrated:</strong> Python, discord.py, asynchronous programming, slash commands, API integration, bot development, automation.</p>
+                <p><strong>Skills Demonstrated:</strong> Python, discord.py, app_commands, slash commands, Discord UI components (modals, views, select menus, buttons), OpenAI API integration, XML parsing, JSON file storage, asynchronous programming, bot development.</p>
             </div>
 
             <!-- Project 8 -->
