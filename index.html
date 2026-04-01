@@ -262,7 +262,7 @@
             <div class="project">
                 <h2>Custom Discord Bot Development</h2>
                 <p>
-                    What started as a simple bot with rotating statuses has grown into a full-featured Discord application. The bot is built in Python using <code>discord.py</code> with <code>app_commands</code> for slash command support, and integrates with the <strong>OpenAI API</strong> to answer questions directly in chat via a <code>/ask</code> command. It includes an API call limiter to prevent runaway usage, along with a set of utility and fun commands like <code>/sb</code> for sending random images, reaction-based polls, and quick link commands.
+                    What started as a simple bot with rotating statuses has grown into a full-featured Discord application. The bot is built in Python using <code>discord.py</code> with <code>app_commands</code> for slash command support, with utility and fun commands like <code>/sb</code> for sending random images, reaction-based polls, and quick link commands.
                 </p>
                 <p>
                     The most substantial feature is a fully interactive <strong>D&amp;D Party Inventory System</strong>, launched with a single <code>/inv</code> slash command. It posts a live embed panel that anyone in the server can interact with using buttons and dropdown menus — no commands needed after that. Features include:
@@ -311,24 +311,10 @@
         async def spell_lookup(self, interaction: discord.Interaction, button: discord.ui.Button):
             await interaction.response.send_modal(SpellSearchModal())
 
-    # /ask command with OpenAI integration and API call limiter
-    @bot.tree.command(name="ask", description="Ask ChatGPT a question")
-    @app_commands.describe(question="What do you want to ask?")
-    async def ask(interaction: discord.Interaction, question: str):
-        global api_calls
-        if api_calls >= MAX_API_CALLS:
-            await interaction.response.send_message("API call limit reached.", ephemeral=True)
-            return
-        response = openai.Completion.create(
-            engine="text-davinci-003", prompt=question, max_tokens=150
-        )
-        api_calls += 1
-        await interaction.response.send_message(response.choices[0].text.strip())
-
     bot.run('YOUR_BOT_TOKEN')
                 </code></pre>
                 <p>You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.</p>
-                <p><strong>Skills Demonstrated:</strong> Python, discord.py, app_commands, slash commands, Discord UI components (modals, views, select menus, buttons), OpenAI API integration, XML parsing, JSON file storage, asynchronous programming, bot development.</p>
+                <p><strong>Skills Demonstrated:</strong> Python, discord.py, app_commands, slash commands, Discord UI components (modals, views, select menus, buttons), XML parsing, JSON file storage, asynchronous programming, bot development.</p>
             </div>
 
             <!-- Project 8 -->
