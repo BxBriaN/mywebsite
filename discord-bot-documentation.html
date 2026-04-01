@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Custom Discord Bot Documentation</title>
     <style>
-        /* Basic styles for the documentation page */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -41,155 +40,201 @@
         .back-button a:hover {
             background-color: #009900;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
     <div class="back-button">
         <a href="index.html">&larr; Back to Home</a>
     </div>
+
     <h1>Custom Discord Bot Documentation</h1>
-    
+
     <h2>Introduction</h2>
     <p>
-        This documentation provides an overview of the custom Discord bot I developed. The bot enhances user engagement and provides utility within Discord servers by offering features such as rotating status messages, image-sharing commands, and interactive utilities.
+        This documentation covers the custom Discord bot built in Python using <code>discord.py</code> with slash command support via <code>app_commands</code>. The bot has grown from a simple status-rotating bot into a full-featured server utility, including an <strong>OpenAI integration</strong> for answering questions and a complete <strong>D&amp;D Party Inventory System</strong> with interactive Discord UI components.
     </p>
-    
-    <h2>Features</h2>
-    <ul>
-        <li><strong>Rotating Status Messages:</strong> The bot changes its status message every 5 seconds to keep the server environment dynamic and engaging.</li>
-        <li><strong><code>/sb</code> Command:</strong> Sends a random speech bubble meme from a specified directory.</li>
-        <li><strong><code>/bx</code> Command:</strong> Shares a link to a YouTube channel.</li>
-        <li><strong><code>/dudu</code> Command:</strong> Shares a link to another YouTube channel.</li>
-        <li><strong><code>/sike</code> Command:</strong> Sends a playful message.</li>
-        <li><strong><code>!info</code> Command:</strong> Provides information about the server.</li>
-        <li><strong><code>!poll</code> Command:</strong> Creates a poll with customizable options.</li>
-    </ul>
-    
+    <p>
+        The bot uses environment variables for sensitive credentials — the Discord token and OpenAI API key are loaded via <code>os.getenv()</code> and never hardcoded.
+    </p>
+
+    <h2>Command Reference</h2>
+    <table>
+        <tr>
+            <th>Command</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr><td><code>/sb</code></td><td>Slash</td><td>Sends a random image from the bot's <code>images</code> folder</td></tr>
+        <tr><td><code>/ask</code></td><td>Slash</td><td>Ask ChatGPT a question via OpenAI API</td></tr>
+        <tr><td><code>/inv</code></td><td>Slash</td><td>Opens the D&amp;D Party Inventory panel</td></tr>
+        <tr><td><code>/bx</code></td><td>Slash</td><td>Posts the bxbrian YouTube link</td></tr>
+        <tr><td><code>/dudu</code></td><td>Slash</td><td>Posts the dulonkk YouTube link</td></tr>
+        <tr><td><code>/sike</code></td><td>Slash</td><td>Sends a playful message</td></tr>
+        <tr><td><code>!info</code></td><td>Prefix</td><td>Displays the current server name</td></tr>
+        <tr><td><code>!poll</code></td><td>Prefix</td><td>Creates a reaction-based poll</td></tr>
+    </table>
+
     <h2>Commands and Usage</h2>
-    
+
     <h3>Rotating Status Messages</h3>
     <p>
-        The bot automatically rotates its status messages every 5 seconds. The statuses include playful messages to entertain users. No user intervention is required.
+        The bot automatically rotates its status every 5 seconds using a background task loop. No user interaction is needed — it starts automatically when the bot comes online.
     </p>
-    <p><em>Note:</em> The status messages are customizable and can be adjusted to suit the server's audience.</p>
-    <h4>Code Snippet:</h4>
-    <pre><code class="language-python">
-@tasks.loop(seconds=5)
+    <pre><code>@tasks.loop(seconds=5)
 async def change_status():
-    statuses = ["Example1", "Example2", "Example3", "Example4"]
-    await bot.change_presence(activity=discord.Game(random.choice(statuses)))
-    </code></pre>
-    
-    <h3><code>/sb</code> Command</h3>
+    await bot.change_presence(activity=discord.Game(random.choice(statuses)))</code></pre>
+
+    <h3><code>/sb</code> — Random Image</h3>
     <p>
-        Sends a random speech bubble meme from the bot's <code>images</code> directory.
+        Picks a random file from the bot's local <code>images</code> directory and sends it in the channel. If the folder is empty, the bot replies with an ephemeral error message only visible to the user.
     </p>
-    <pre><code>/sb</code></pre>
-    <p><strong>Usage Example:</strong></p>
-    <pre><code>/sb</code></pre>
-    
-    <h3><code>/bx</code> Command</h3>
-    <p>
-        Shares a link to the YouTube channel "<strong>bxbrian</strong>".
-    </p>
-    <pre><code>/bx</code></pre>
-    
-    <h3><code>/dudu</code> Command</h3>
-    <p>
-        Shares a link to the YouTube channel "<strong>dulonkk</strong>".
-    </p>
-    <pre><code>/dudu</code></pre>
-    
-    <h3><code>/sike</code> Command</h3>
-    <p>
-        Sends a playful message to the user.
-    </p>
-    <pre><code>/sike</code></pre>
-    
-    <h3><code>!info</code> Command</h3>
-    <p>
-        Displays information about the current server.
-    </p>
-    <pre><code>!info</code></pre>
-    
-    <h3><code>!poll</code> Command</h3>
-    <p>
-        Creates a poll with up to two options. Users can vote by reacting with ✅ or ❌.
-    </p>
-    <p><strong>Usage Examples:</strong></p>
-    <ul>
-        <li><strong>Yes/No Poll:</strong>
-            <pre><code>!poll "Is the bot helpful?"</code></pre>
-        </li>
-        <li><strong>Custom Options Poll:</strong>
-            <pre><code>!poll "Which feature do you like?" "Status Rotation" "Image Sharing"</code></pre>
-        </li>
-    </ul>
-    
-    <h2>Code Overview</h2>
-    
-    <h3>Rotating Status Messages</h3>
-    <p>
-        The bot uses a task loop to change its status every 5 seconds:
-    </p>
-    <pre><code class="language-python">
-@tasks.loop(seconds=5)
-async def change_status():
-    statuses = ["Example1", "Example2", "Example3", "Example4"]
-    await bot.change_presence(activity=discord.Game(random.choice(statuses)))
-    </code></pre>
-    
-    <h3><code>/sb</code> Command Implementation</h3>
-    <p>
-        The bot sends a random speech bubble meme when the <code>/sb</code> command is used:
-    </p>
-    <pre><code class="language-python">
-@bot.tree.command(name="sb")
+    <pre><code>@bot.tree.command(name="sb", description="Send a random image from the 'images' folder.")
 async def send_image(interaction: discord.Interaction):
     image_dir = 'images'
     images = os.listdir(image_dir)
     if not images:
         await interaction.response.send_message('No images found.', ephemeral=True)
         return
-
     image_file = random.choice(images)
     image_path = os.path.join(image_dir, image_file)
-    await interaction.response.send_message(file=discord.File(image_path))
-    </code></pre>
-    
-    <h3><code>!poll</code> Command Implementation</h3>
+    await interaction.response.send_message(file=discord.File(image_path))</code></pre>
+
+    <h3><code>/ask</code> — ChatGPT Integration</h3>
     <p>
-        The bot creates a poll with reactions for users to vote:
+        Sends a question to the OpenAI API and returns the response in chat. The bot tracks how many API calls have been made and blocks requests once a configurable limit (<code>MAX_API_CALLS</code>) is reached to prevent runaway usage. The API key is loaded from an environment variable.
     </p>
-    <pre><code class="language-python">
-@bot.command()
+    <pre><code>@bot.tree.command(name="ask", description="Ask ChatGPT a question")
+@app_commands.describe(question="What do you want to ask ChatGPT?")
+async def ask(interaction: discord.Interaction, question: str):
+    global api_calls
+    if api_calls >= MAX_API_CALLS:
+        await interaction.response.send_message("API call limit reached.", ephemeral=True)
+        return
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=question,
+        max_tokens=150
+    )
+    api_calls += 1
+    await interaction.response.send_message(response.choices[0].text.strip())</code></pre>
+
+    <h3><code>!poll</code> — Reaction Poll</h3>
+    <p>
+        Creates a poll with ✅/❌ reactions. Supports a plain yes/no poll or two custom options. The command also purges the user's original message to keep the channel clean.
+    </p>
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Yes/No: <code>!poll "Is this bot useful?"</code></li>
+        <li>Custom options: <code>!poll "Best game?" "Minecraft" "Terraria"</code></li>
+        <li>One custom option: <code>!poll "Go out?" "Yes" </code> — uses "No" as the second option automatically</li>
+    </ul>
+    <pre><code>@bot.command()
 async def poll(ctx, question, option1=None, option2=None):
+    await ctx.channel.purge(limit=1)
     if option1 is None and option2 is None:
-        message = await ctx.send(f"**New poll:** {question}\n✅ = Yes\n❌ = No")
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = No**")
+    elif option1 is not None and option2 is None:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = No**")
+    elif option1 is None and option2 is not None:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = {option2}**")
     else:
-        message = await ctx.send(f"**New poll:** {question}\n✅ = {option1}\n❌ = {option2}")
-    await message.add_reaction('✅')
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = {option2}**")
     await message.add_reaction('❌')
-    </code></pre>
-    
+    await message.add_reaction('✅')</code></pre>
+
+    <h2>D&amp;D Party Inventory System (<code>/inv</code>)</h2>
+    <p>
+        The most substantial feature of the bot. Running <code>/inv</code> posts a persistent embed panel in the channel that anyone in the server can interact with using buttons and dropdown menus — no additional commands needed. Inventory data is stored in JSON files on disk, sharded by guild ID so each server has its own isolated inventory.
+    </p>
+
+    <h3>Inventory Panel Buttons</h3>
+    <table>
+        <tr>
+            <th>Button</th>
+            <th>Description</th>
+        </tr>
+        <tr><td>📖 Add from Compendium</td><td>Search the D&amp;D compendium and add an official item to inventory</td></tr>
+        <tr><td>✏️ Add Custom Item</td><td>Add a homebrew or custom item with name, quantity, cost, weight, and description</td></tr>
+        <tr><td>🗑️ Remove Item</td><td>Select an item from inventory and remove some or all of it</td></tr>
+        <tr><td>📋 Item Details</td><td>View full stats and description for any item in the inventory</td></tr>
+        <tr><td>🪙 Gold</td><td>Manage party gold, personal gold, and transfers between the two</td></tr>
+        <tr><td>✨ Spell Lookup</td><td>Search the compendium for spells and view full spell details</td></tr>
+        <tr><td>🔄 Refresh</td><td>Refresh the embed to show the latest inventory state</td></tr>
+    </table>
+
+    <h3>Compendium Search</h3>
+    <p>
+        The bot loads item and spell data at startup by parsing a local <code>compendium.xml</code> file using Python's <code>xml.etree.ElementTree</code>. The parser also sanitizes bare <code>&amp;</code> characters that would otherwise cause XML parse errors. Search results are paginated in groups of 25 using Discord select menus and next/previous buttons.
+    </p>
+    <pre><code>def load_compendium() -> list[dict]:
+    import re
+    items = []
+    with open(COMPENDIUM_PATH, "r", encoding="utf-8", errors="ignore") as f:
+        raw = f.read()
+    # Fix bare & that aren't part of an XML entity
+    raw = re.sub(r"&(?!(?:[a-zA-Z][a-zA-Z0-9]*|#\d+|#x[0-9a-fA-F]+);)", "&amp;", raw)
+    root = ET.fromstring(raw)
+    for item in root.findall(".//item"):
+        name = (item.findtext("name") or "").strip()
+        if name:
+            items.append({ "name": name, "type": item.findtext("type") or "—", ... })
+    return sorted(items, key=lambda x: x["name"])</code></pre>
+
+    <h3>Gold System</h3>
+    <p>
+        The inventory tracks two separate gold pools — a shared <strong>party gold</strong> pool and individual <strong>player gold</strong> wallets stored per Discord user ID. The panel displays both along with a grand total. Players can add/spend their own gold, modify party gold (if they have permission), or transfer gold between themselves and the party pool in either direction.
+    </p>
+
+    <h3>Data Storage</h3>
+    <p>
+        Each guild's inventory is saved to <code>inventories/&lt;guild_id&gt;/party.json</code>. The file stores items (with quantity, custom flag, and optional metadata), party gold, and a per-user gold map. Files are created automatically on first use.
+    </p>
+    <pre><code># Example party.json structure
+{
+  "items": {
+    "Longsword": { "qty": 2, "custom": false },
+    "Bag of Holding": { "qty": 1, "custom": false },
+    "Mystery Potion": { "qty": 3, "custom": true, "description": "Glows faintly blue." }
+  },
+  "gold": 450,
+  "player_gold": {
+    "123456789": 120,
+    "987654321": 75
+  }
+}</code></pre>
+
+    <h2>Setup &amp; Requirements</h2>
+    <ul>
+        <li>Python 3.10+</li>
+        <li><code>discord.py</code> with app_commands support</li>
+        <li><code>openai</code> Python package</li>
+        <li>A <code>compendium.xml</code> file in the same directory as the bot for compendium/spell features</li>
+        <li>An <code>images/</code> folder for the <code>/sb</code> command</li>
+        <li>Environment variables: <code>DISCORD_TOKEN</code> and <code>OPENAI_API_KEY</code></li>
+    </ul>
+
     <h2>Notes</h2>
     <ul>
-        <li>The bot uses both slash commands (prefixed with <code>/</code>) and traditional commands (prefixed with <code>!</code>).</li>
-        <li>Ensure the bot has the necessary permissions to read messages, send messages, and add reactions.</li>
-        <li>Some commands are designed for fun and may reference inside jokes or specific individuals.</li>
-        <li>The <code>statuses</code> list and speech bubble images can be customized to match the theme of your server.</li>
+        <li>The bot uses both slash commands (<code>/</code>) and prefix commands (<code>!</code>). Slash commands are synced to Discord on startup.</li>
+        <li>All sensitive credentials are loaded from environment variables — never hardcode tokens in your source code.</li>
+        <li>The inventory panel uses <code>timeout=None</code> on its View so buttons remain active indefinitely without expiring.</li>
+        <li>The compendium and spell data load once at startup. Restart the bot to pick up changes to <code>compendium.xml</code>.</li>
+        <li>Some commands (<code>/bx</code>, <code>/dudu</code>, <code>/sike</code>) are server-specific fun commands and may reference inside jokes.</li>
     </ul>
-    
-    <h2>Future Enhancements</h2>
-    <p>
-        Planned features for future updates include:
-    </p>
-    <ul>
-        <li>Adding more interactive and utility commands.</li>
-        <li>Integrating external APIs for dynamic content.</li>
-        <li>Implementing user-specific settings and preferences.</li>
-    </ul>
-    
+
     <div class="back-button">
         <a href="index.html">&larr; Back to Home</a>
     </div>
