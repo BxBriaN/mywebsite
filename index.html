@@ -190,61 +190,79 @@
             <div class="project">
                 <h2>Personal Home Server Build &amp; Home Lab</h2>
                 <p>
-                    My home lab journey started with repurposing an old iMac desktop as my first server. Over time I outgrew it and built my own personal server from the ground up, hand-selecting all the components. The server now runs <strong>Ubuntu</strong> and hosts the majority of my self-hosted services and infrastructure. This progression gave me deep hands-on experience in hardware, Linux server administration, and system configuration.
+                    My home lab journey started by repurposing an old <strong>iMac desktop</strong> as my first server. I wiped it, installed a Linux-based OS, and began running services on it — learning the fundamentals of server administration, networking, and self-hosting through trial and error. It was my first real exposure to managing a live system and understanding how services interact with each other on a network.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Hardware building, Ubuntu Server, Linux administration, server configuration, home lab setup.</p>
+                <p>
+                    As my needs grew and the iMac started showing its limitations, I decided to build my own personal server from scratch. I researched compatible components, selected hardware suited for a low-power, always-on workload, and assembled it myself. The server now runs <strong>Ubuntu Server</strong> and acts as the backbone of my entire home lab — hosting all of my self-hosted applications, storage, and services. Managing it day-to-day has given me strong experience in Linux system administration, package management, file system management, user permissions, service configuration, and general troubleshooting.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Hardware building, Ubuntu Server, Linux administration, server configuration, package management, system troubleshooting, home lab design.</p>
             </div>
 
             <!-- Project 2 -->
             <div class="project">
                 <h2>Self-Hosted Services &amp; Infrastructure</h2>
                 <p>
-                    I run a full suite of self-hosted services on my personal server, all managed and deployed using <strong>Docker and Docker Compose</strong>. This includes a personal <strong>NAS</strong> for file storage, a <strong>Jellyfin</strong> media server with the <strong>arr stack</strong> for automated media management, and dedicated game servers for <strong>Minecraft</strong> and <strong>Terraria</strong>. Using Docker Compose keeps everything organized, reproducible, and easy to maintain.
+                    One of the things I enjoy most about running my own server is having full control over my own infrastructure. I've set up and manage a wide range of self-hosted services, all deployed and orchestrated using <strong>Docker and Docker Compose</strong>. Docker Compose lets me define every service, its dependencies, environment variables, volumes, and networking in a single file — making it easy to spin things up, tear them down, and keep everything consistent.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Docker, Docker Compose, NAS setup, Jellyfin, arr stack, game server administration, service orchestration.</p>
+                <p>
+                    My setup includes a personal <strong>NAS</strong> for centralized file storage and access across devices, a <strong>Jellyfin</strong> media server for streaming my own media library, and the full <strong>arr stack</strong> (Sonarr, Radarr, Prowlarr, and others) for automated media management and organization. I also host dedicated game servers for <strong>Minecraft</strong> and <strong>Terraria</strong>, which I've used to play with friends — managing server configs, mods, backups, and updates myself. Every service runs in its own container, keeping things isolated and easy to manage.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Docker, Docker Compose, container networking, NAS configuration, Jellyfin, arr stack, game server administration, service isolation, infrastructure management.</p>
             </div>
 
             <!-- Project 3 -->
             <div class="project">
                 <h2>Remote Access &amp; Network Security</h2>
                 <p>
-                    I set up a self-hosted remote desktop solution using <strong>RustDesk</strong>, running entirely on my personal server and accessed securely through <strong>Tailscale</strong>. This gives me full remote access to my machines without relying on third-party services. On the network side, I configured my <strong>GL.iNet GL-AXT1800</strong> router with <strong>DNS sinkholing</strong> and a <strong>VPN</strong>, centralizing network-level threat blocking and securing all traffic across every device on my network.
+                    Having reliable and secure remote access to my home lab was a priority. I self-hosted a <strong>RustDesk</strong> relay and ID server directly on my personal server, which allows me to remotely connect to any of my machines without routing traffic through a third-party service. Combined with <strong>Tailscale</strong>, I have a secure, private mesh network that makes my devices accessible from anywhere as if they were on the same local network — without exposing any ports to the public internet.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> RustDesk, Tailscale, VPN configuration, DNS sinkholing, GL.iNet router configuration, network security.</p>
+                <p>
+                    On the network security side, I configured my <strong>GL.iNet GL-AXT1800</strong> router to handle <strong>DNS sinkholing</strong>, blocking ads and known malicious domains at the network level before they reach any device. I also set up a <strong>VPN</strong> on the router itself so that all traffic leaving my network is encrypted and routed through a trusted tunnel. This setup replaced what I previously had running on my server and centralized everything at the network edge, improving both performance and coverage across all devices including those that can't run their own VPN clients.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> RustDesk self-hosting, Tailscale mesh networking, VPN configuration, DNS sinkholing, GL.iNet router administration, network security, port management.</p>
             </div>
 
             <!-- Project 4 -->
             <div class="project">
                 <h2>Website Development &amp; Personal Subdomain</h2>
                 <p>
-                    I designed and built this portfolio website from scratch using <strong>HTML, CSS, and JavaScript</strong>. Beyond the main site, I configured a personal subdomain to host my own download links, handling DNS records and web hosting independently. The site features responsive design, smooth scrolling navigation, and a clean interface.
+                    I designed and built this portfolio website entirely from scratch using <strong>HTML, CSS, and JavaScript</strong> — no templates or frameworks. Every section, style, and interaction was written by hand, which gave me a solid understanding of how the web works at a fundamental level. The site is fully responsive, adapting cleanly to both desktop and mobile screens, and includes smooth scrolling navigation between sections.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> HTML, CSS, JavaScript, responsive web design, DNS configuration, subdomain management, web hosting.</p>
+                <p>
+                    Beyond the main portfolio site, I configured a personal <strong>subdomain</strong> to serve as my own private download page. I handle everything myself — DNS record configuration, pointing the subdomain to the right server, and managing the hosted files. This gave me practical experience with DNS management and understanding how domains, records, and web servers all tie together.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> HTML, CSS, JavaScript, responsive web design, DNS configuration, subdomain setup, web hosting, domain management.</p>
             </div>
 
             <!-- Project 5 -->
             <div class="project">
                 <h2>Home Automation with Home Assistant</h2>
                 <p>
-                    I integrated <strong>Home Assistant</strong> into my apartment to automate a non-smart thermostat. Using smart switches and Home Assistant automations, I can control the thermostat with a tap on my phone, a voice command, or remotely from anywhere. This project gave me hands-on experience with IoT integration, automation scripting, and making dumb hardware smart without replacing it.
+                    My apartment came with a standard non-smart thermostat — no app, no scheduling, no remote control. Rather than replace it with an expensive smart thermostat, I integrated <strong>Home Assistant</strong> with a smart switch wired in a way that lets Home Assistant control the thermostat's power state. Through the Home Assistant app, I can turn the heat or AC on and off with a single tap on my phone from anywhere in the world.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Home Assistant, home automation, IoT integration, voice control, remote access, smart home configuration.</p>
+                <p>
+                    I also set up <strong>voice command</strong> support, so I can just say a command out loud and Home Assistant triggers the thermostat automatically. Setting this up required configuring automations, integrations, and understanding how Home Assistant communicates with smart devices over the local network. It was a great introduction to IoT concepts, YAML-based automation scripting, and how to build practical smart home setups without relying on cloud-dependent commercial products.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Home Assistant, YAML automation scripting, IoT integration, smart home configuration, voice assistant integration, remote device control.</p>
             </div>
 
             <!-- Project 6 -->
             <div class="project">
                 <h2>Hardware Builds</h2>
                 <p>
-                    I hand-built a custom <strong>gaming PC</strong> from scratch, researching and selecting every component before assembling it myself. I also repurposed a <strong>mini PC</strong> — originally configured as a retro game emulator — which now serves as a dedicated living room media device integrated with my Jellyfin server. Both builds gave me a strong foundation in hardware compatibility, component selection, and system configuration.
+                    I built my own <strong>custom gaming PC</strong> from the ground up — researching parts for compatibility and performance, comparing specs and prices, and assembling everything myself. Going through the full build process taught me a lot about how computer hardware works together: CPU and motherboard compatibility, RAM specs, cooling solutions, cable management, and BIOS configuration. Troubleshooting issues that came up during and after the build also gave me hands-on diagnostic experience.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> PC building, component selection, hardware configuration, emulation setup, media center setup.</p>
+                <p>
+                    I also set up a <strong>mini PC</strong> that I originally configured as a retro game emulation station, loading it up with emulators and ROMs and setting up a controller-friendly frontend for a clean couch experience. Over time I repurposed it into a dedicated <strong>living room media device</strong>, integrating it with my Jellyfin server so I can stream my full media library directly from the TV without any external streaming service.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> PC building, hardware compatibility research, BIOS configuration, system diagnostics, emulation setup, media center configuration.</p>
             </div>
 
             <!-- Project 7 -->
             <div class="project">
                 <h2>Custom Discord Bot Development</h2>
                 <p>
-                    I developed a custom <strong>Discord bot</strong> in Python with features like rotating status messages and a <code>/sb</code> command for sending images. The bot enhances user engagement and adds utility to Discord servers.
+                    I developed a custom <strong>Discord bot</strong> in Python using the <code>discord.py</code> library. The bot includes rotating status messages that cycle automatically using a background task loop, a <code>/sb</code> slash command that picks and sends a random image from a local directory, and a <code>!poll</code> command that lets users create quick yes/no or two-option polls with reaction-based voting. Building the bot taught me about asynchronous programming, working with external APIs, handling user interactions, and structuring a Python project for ongoing use.
                 </p>
                 <h3>Code Snippet:</h3>
                 <pre><code>
@@ -280,37 +298,40 @@
     bot.run('YOUR_BOT_TOKEN')
                 </code></pre>
                 <p>You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.</p>
-                <p><strong>Skills Demonstrated:</strong> Python programming, Discord API, bot development, automation.</p>
+                <p><strong>Skills Demonstrated:</strong> Python, discord.py, asynchronous programming, slash commands, API integration, bot development, automation.</p>
             </div>
 
             <!-- Project 8 -->
             <div class="project">
                 <h2>Penetration Testing &amp; Security Tools</h2>
                 <p>
-                    Using a <strong>Flipper Zero</strong> and <strong>Wi-Fi Devboard</strong>, I've conducted hands-on security testing exercises including Wi-Fi network analysis, RFID simulations, and wireless handshake captures. I've practiced <strong>password cracking</strong> techniques against captured handshakes in a controlled lab environment, building practical knowledge of offensive techniques and the importance of strong network security.
+                    I've used a <strong>Flipper Zero</strong> paired with a <strong>Wi-Fi Devboard</strong> to conduct hands-on security testing exercises in a controlled environment. On the wireless side, I practiced capturing <strong>WPA handshakes</strong> from Wi-Fi networks and then running <strong>password cracking</strong> attacks against those captures using wordlists and cracking tools. This gave me a real understanding of how weak passwords and unprotected networks can be exploited, and reinforced why strong passphrases and proper network configuration matter.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Penetration testing, Wi-Fi analysis, handshake capture, password cracking, RFID security, Flipper Zero.</p>
+                <p>
+                    I also explored <strong>RFID and NFC</strong> capabilities with the Flipper Zero, experimenting with reading and emulating cards to understand how these technologies work at a low level. These projects were done entirely for learning purposes in my own lab environment and helped bridge the gap between theory and real-world security concepts.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Wi-Fi security testing, WPA handshake capture, password cracking, RFID/NFC analysis, Flipper Zero, Wi-Fi Devboard, wireless security concepts.</p>
             </div>
 
             <!-- Project 9 -->
             <div class="project">
                 <h2>Google Cybersecurity Certificate — Labs &amp; Projects</h2>
                 <p>
-                    As part of earning the Google Cybersecurity Certificate, I completed a series of hands-on labs and projects covering core areas of cybersecurity. All work was done through Google Career Certificates.
+                    As part of earning the <strong>Google Cybersecurity Certificate</strong>, I completed a comprehensive series of hands-on labs and projects covering the core domains of cybersecurity. These weren't just multiple choice exercises — each project involved working through real scenarios using industry-standard tools and frameworks.
                 </p>
                 <ul>
-                    <li><strong>Security Audit &amp; Risk Assessment</strong> — Conducted a full internal security audit using NIST-based frameworks; identified security gaps, risks, and control weaknesses; provided remediation recommendations.</li>
-                    <li><strong>Incident Response Investigation</strong> — Analyzed simulated security incidents using the incident response lifecycle; documented findings, root causes, and mitigation steps; produced structured incident reports.</li>
-                    <li><strong>Network Traffic Analysis (Wireshark / tcpdump)</strong> — Captured and analyzed packet data to identify suspicious activity; investigated anomalies and potential attack patterns.</li>
-                    <li><strong>SIEM Threat Detection (Splunk / Chronicle)</strong> — Investigated security alerts using SIEM platforms; analyzed logs for indicators of compromise (IOCs); practiced threat detection and response workflows.</li>
-                    <li><strong>Linux Security &amp; Log Analysis</strong> — Used the Linux CLI for system monitoring; managed file permissions and analyzed system logs; supported basic security hardening tasks.</li>
-                    <li><strong>SQL Log Analysis</strong> — Queried databases to analyze security-related data; filtered logs to detect suspicious or unauthorized activity.</li>
-                    <li><strong>Python Security Automation</strong> — Developed Python scripts to automate security tasks; parsed and analyzed log data programmatically.</li>
-                    <li><strong>Threat Modeling &amp; Risk Analysis</strong> — Identified assets, threats, and vulnerabilities; evaluated risk levels and prioritized mitigation strategies.</li>
-                    <li><strong>Detection &amp; Response Workflow (IDS/SIEM)</strong> — Practiced alert triage, escalation, and response processes; worked with IDS tools including Suricata.</li>
-                    <li><strong>Cybersecurity Portfolio &amp; Case Studies</strong> — Compiled a portfolio demonstrating hands-on skills in detection, analysis, and response aligned with entry-level SOC roles.</li>
+                    <li><strong>Security Audit &amp; Risk Assessment</strong> — Conducted a full internal security audit using NIST-based frameworks. Identified security gaps, risks, and control weaknesses across simulated organizational assets, and produced a detailed report with actionable remediation recommendations.</li>
+                    <li><strong>Incident Response Investigation</strong> — Analyzed simulated security incidents by following the incident response lifecycle from detection through containment and recovery. Documented root causes, attack timelines, and mitigation steps in structured incident reports.</li>
+                    <li><strong>Network Traffic Analysis (Wireshark / tcpdump)</strong> — Captured and analyzed live packet data to identify suspicious activity and potential threats. Investigated protocol-level anomalies and practiced applying network security monitoring techniques to real traffic.</li>
+                    <li><strong>SIEM Threat Detection (Splunk / Chronicle)</strong> — Worked inside SIEM platforms to investigate security alerts, correlate log data across sources, and identify indicators of compromise (IOCs). Practiced the full threat detection and response workflow from alert to escalation.</li>
+                    <li><strong>Linux Security &amp; Log Analysis</strong> — Used the Linux command line for system monitoring, log analysis, and security operations tasks. Managed file permissions, reviewed auth logs and system logs, and applied basic hardening techniques.</li>
+                    <li><strong>SQL Log Analysis</strong> — Wrote SQL queries to extract and analyze security-relevant data from databases. Filtered large log datasets to surface suspicious or unauthorized activity and support simulated investigations.</li>
+                    <li><strong>Python Security Automation</strong> — Developed Python scripts to automate repetitive security tasks such as log parsing, pattern matching, and alert summarization. Focused on improving efficiency in security workflows through scripting.</li>
+                    <li><strong>Threat Modeling &amp; Risk Analysis</strong> — Identified organizational assets, modeled potential threats, and evaluated vulnerabilities. Applied risk scoring to prioritize mitigation strategies using structured threat modeling methodologies.</li>
+                    <li><strong>Detection &amp; Response Workflow (IDS/SIEM)</strong> — Practiced alert triage, escalation procedures, and structured response processes. Worked with IDS concepts and tools including <strong>Suricata</strong> to detect and classify network-based threats.</li>
+                    <li><strong>Cybersecurity Portfolio &amp; Case Studies</strong> — Compiled a professional portfolio documenting hands-on projects focused on detection, analysis, and incident response — aligned with the skills and expectations of entry-level SOC analyst roles.</li>
                 </ul>
-                <p><strong>Skills Demonstrated:</strong> NIST frameworks, incident response, Wireshark, tcpdump, Splunk, Chronicle, Linux CLI, SQL, Python, threat modeling, Suricata, SIEM, IDS, log analysis.</p>
+                <p><strong>Skills Demonstrated:</strong> NIST frameworks, incident response, Wireshark, tcpdump, Splunk, Chronicle, Linux CLI, SQL, Python, threat modeling, Suricata, SIEM, IDS, log analysis, security auditing.</p>
             </div>
 
         </div>
