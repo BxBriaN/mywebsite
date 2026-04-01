@@ -78,7 +78,6 @@
             <th>Description</th>
         </tr>
         <tr><td><code>/sb</code></td><td>Slash</td><td>Sends a random image from the bot's <code>images</code> folder</td></tr>
-        <tr><td><code>/ask</code></td><td>Slash</td><td>Ask ChatGPT a question via OpenAI API</td></tr>
         <tr><td><code>/inv</code></td><td>Slash</td><td>Opens the D&amp;D Party Inventory panel</td></tr>
         <tr><td><code>/bx</code></td><td>Slash</td><td>Posts the bxbrian YouTube link</td></tr>
         <tr><td><code>/dudu</code></td><td>Slash</td><td>Posts the dulonkk YouTube link</td></tr>
@@ -111,25 +110,6 @@ async def send_image(interaction: discord.Interaction):
     image_file = random.choice(images)
     image_path = os.path.join(image_dir, image_file)
     await interaction.response.send_message(file=discord.File(image_path))</code></pre>
-
-    <h3><code>/ask</code> — ChatGPT Integration</h3>
-    <p>
-        Sends a question to the OpenAI API and returns the response in chat. The bot tracks how many API calls have been made and blocks requests once a configurable limit (<code>MAX_API_CALLS</code>) is reached to prevent runaway usage. The API key is loaded from an environment variable.
-    </p>
-    <pre><code>@bot.tree.command(name="ask", description="Ask ChatGPT a question")
-@app_commands.describe(question="What do you want to ask ChatGPT?")
-async def ask(interaction: discord.Interaction, question: str):
-    global api_calls
-    if api_calls >= MAX_API_CALLS:
-        await interaction.response.send_message("API call limit reached.", ephemeral=True)
-        return
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=question,
-        max_tokens=150
-    )
-    api_calls += 1
-    await interaction.response.send_message(response.choices[0].text.strip())</code></pre>
 
     <h3><code>!poll</code> — Reaction Poll</h3>
     <p>
