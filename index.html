@@ -185,36 +185,69 @@
 
         <!-- Projects Section -->
         <div id="projects">
+
             <!-- Project 1 -->
             <div class="project">
-                <h2>Home Lab Setup and Use Cases</h2>
+                <h2>Personal Home Server Build &amp; Home Lab</h2>
                 <p>
-                    I've transformed an old Mac desktop and a <strong>Beelink Mini S12 Pro</strong> mini PC into a powerful home lab environment. The Mac server functions as a media server, personal NAS, and cybersecurity lab. Using the <strong>arr stack</strong> alongside Plex, I manage and stream media efficiently. I utilize a Docker Compose file to orchestrate and deploy these services seamlessly. Torrents are securely handled through a VPN to ensure privacy and security. The Beelink Mini S12 Pro is integrated into my home lab for additional testing and experimentation, allowing me to expand my capabilities and explore new technologies.
+                    My home lab journey started with repurposing an old iMac desktop as my first server. Over time I outgrew it and built my own personal server from the ground up, hand-selecting all the components. The server now runs <strong>Ubuntu</strong> and hosts the majority of my self-hosted services and infrastructure. This progression gave me deep hands-on experience in hardware, Linux server administration, and system configuration.
                 </p>
-                <p>
-                    The home lab runs various cybersecurity tools and features network segmentation with multiple virtual machines, serving as a testing ground for penetration testing exercises using my Flipper Zero device.
-                </p>
-                <p><strong>Skills Demonstrated:</strong> Home lab setup, media server configuration, NAS management, Docker Compose, VPN configuration, arr stack implementation, network segmentation, virtualization, penetration testing, hardware integration.</p>
+                <p><strong>Skills Demonstrated:</strong> Hardware building, Ubuntu Server, Linux administration, server configuration, home lab setup.</p>
             </div>
 
             <!-- Project 2 -->
             <div class="project">
-                <h2>Cybersecurity Tools and Penetration Testing Projects</h2>
+                <h2>Self-Hosted Services &amp; Infrastructure</h2>
                 <p>
-                    Utilizing the Flipper Zero and the Wi-Fi Devboard, I've conducted various penetration testing projects. These include Wi-Fi network analysis and RFID hacking simulations. I've documented case studies and tutorials on specific tasks to showcase my practical skills in cybersecurity.
+                    I run a full suite of self-hosted services on my personal server, all managed and deployed using <strong>Docker and Docker Compose</strong>. This includes a personal <strong>NAS</strong> for file storage, a <strong>Jellyfin</strong> media server with the <strong>arr stack</strong> for automated media management, and dedicated game servers for <strong>Minecraft</strong> and <strong>Terraria</strong>. Using Docker Compose keeps everything organized, reproducible, and easy to maintain.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Penetration testing, Wi-Fi network analysis, RFID hacking, Flipper Zero utilization.</p>
+                <p><strong>Skills Demonstrated:</strong> Docker, Docker Compose, NAS setup, Jellyfin, arr stack, game server administration, service orchestration.</p>
             </div>
 
             <!-- Project 3 -->
             <div class="project">
+                <h2>Remote Access &amp; Network Security</h2>
+                <p>
+                    I set up a self-hosted remote desktop solution using <strong>RustDesk</strong>, running entirely on my personal server and accessed securely through <strong>Tailscale</strong>. This gives me full remote access to my machines without relying on third-party services. On the network side, I configured my <strong>GL.iNet GL-AXT1800</strong> router with <strong>DNS sinkholing</strong> and a <strong>VPN</strong>, centralizing network-level threat blocking and securing all traffic across every device on my network.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> RustDesk, Tailscale, VPN configuration, DNS sinkholing, GL.iNet router configuration, network security.</p>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project">
+                <h2>Website Development &amp; Personal Subdomain</h2>
+                <p>
+                    I designed and built this portfolio website from scratch using <strong>HTML, CSS, and JavaScript</strong>. Beyond the main site, I configured a personal subdomain to host my own download links, handling DNS records and web hosting independently. The site features responsive design, smooth scrolling navigation, and a clean interface.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> HTML, CSS, JavaScript, responsive web design, DNS configuration, subdomain management, web hosting.</p>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project">
+                <h2>Home Automation with Home Assistant</h2>
+                <p>
+                    I integrated <strong>Home Assistant</strong> into my apartment to automate a non-smart thermostat. Using smart switches and Home Assistant automations, I can control the thermostat with a tap on my phone, a voice command, or remotely from anywhere. This project gave me hands-on experience with IoT integration, automation scripting, and making dumb hardware smart without replacing it.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> Home Assistant, home automation, IoT integration, voice control, remote access, smart home configuration.</p>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project">
+                <h2>Hardware Builds</h2>
+                <p>
+                    I hand-built a custom <strong>gaming PC</strong> from scratch, researching and selecting every component before assembling it myself. I also repurposed a <strong>mini PC</strong> — originally configured as a retro game emulator — which now serves as a dedicated living room media device integrated with my Jellyfin server. Both builds gave me a strong foundation in hardware compatibility, component selection, and system configuration.
+                </p>
+                <p><strong>Skills Demonstrated:</strong> PC building, component selection, hardware configuration, emulation setup, media center setup.</p>
+            </div>
+
+            <!-- Project 7 -->
+            <div class="project">
                 <h2>Custom Discord Bot Development</h2>
                 <p>
-                    I've developed a custom Discord bot with functionalities like rotating status messages and a <code>/sb</code> command for sending images. The bot enhances user engagement and provides utility within Discord servers.
+                    I developed a custom <strong>Discord bot</strong> in Python with features like rotating status messages and a <code>/sb</code> command for sending images. The bot enhances user engagement and adds utility to Discord servers.
                 </p>
                 <h3>Code Snippet:</h3>
                 <pre><code>
-    # Import necessary modules
     import discord
     from discord.ext import commands, tasks
     import os
@@ -222,7 +255,6 @@
 
     bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 
-    # List of status messages
     statuses = ["Playing Chess", "Listening to Music", "Coding in Python", "Chatting with Users"]
 
     @bot.event
@@ -230,12 +262,10 @@
         print("Bot is up and ready!")
         change_status.start()
 
-    # Rotate status messages every 5 seconds
     @tasks.loop(seconds=5)
     async def change_status():
         await bot.change_presence(activity=discord.Game(random.choice(statuses)))
 
-    # /sb command to send a random image
     @bot.tree.command(name="sb")
     async def send_image(interaction: discord.Interaction):
         image_dir = 'images'
@@ -243,47 +273,46 @@
         if not images:
             await interaction.response.send_message('No images found.', ephemeral=True)
             return
-
         image_file = random.choice(images)
         image_path = os.path.join(image_dir, image_file)
         await interaction.response.send_message(file=discord.File(image_path))
 
-    # !poll command to create a poll
-    @bot.command()
-    async def poll(ctx, question, option1=None, option2=None):
-        if option1 is None and option2 is None:
-            message = await ctx.send(f"**New poll:** {question}\n✅ = Yes\n❌ = No")
-        else:
-            message = await ctx.send(f"**New poll:** {question}\n✅ = {option1}\n❌ = {option2}")
-        await message.add_reaction('✅')
-        await message.add_reaction('❌')
-
-    # Run the bot with your token
     bot.run('YOUR_BOT_TOKEN')
                 </code></pre>
-                <p>
-                    You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.
-                </p>
+                <p>You can read more about the bot's features and implementation in the <a href="discord-bot-documentation.html">documentation</a>.</p>
                 <p><strong>Skills Demonstrated:</strong> Python programming, Discord API, bot development, automation.</p>
             </div>
 
-            <!-- Project 4 -->
+            <!-- Project 8 -->
             <div class="project">
-                <h2>GL.iNet GL-AXT1800 Router Configuration</h2>
+                <h2>Penetration Testing &amp; Security Tools</h2>
                 <p>
-                    I've utilized the GL.iNet GL-AXT1800 router for advanced networking tasks, including setting up VPNs, configuring firewall rules, and implementing other security configurations to enhance my home network's security. Additionally, I've configured the router to perform DNS sinkholing, which was previously handled by my home server. This has centralized my network security and improved performance.
+                    Using a <strong>Flipper Zero</strong> and <strong>Wi-Fi Devboard</strong>, I've conducted hands-on security testing exercises including Wi-Fi network analysis, RFID simulations, and wireless handshake captures. I've practiced <strong>password cracking</strong> techniques against captured handshakes in a controlled lab environment, building practical knowledge of offensive techniques and the importance of strong network security.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> Advanced router configuration, VPN setup, firewall management, DNS sinkholing, network security enhancement.</p>
+                <p><strong>Skills Demonstrated:</strong> Penetration testing, Wi-Fi analysis, handshake capture, password cracking, RFID security, Flipper Zero.</p>
             </div>
 
-            <!-- Project 5 -->
+            <!-- Project 9 -->
             <div class="project">
-                <h2>Website Development and Coding</h2>
+                <h2>Google Cybersecurity Certificate — Labs &amp; Projects</h2>
                 <p>
-                    I designed and coded this portfolio website from scratch to showcase my skills and projects in cybersecurity and development. The site features responsive design, smooth scrolling navigation, and a clean, user-friendly interface.
+                    As part of earning the Google Cybersecurity Certificate, I completed a series of hands-on labs and projects covering core areas of cybersecurity. All work was done through Google Career Certificates.
                 </p>
-                <p><strong>Skills Demonstrated:</strong> HTML, CSS, JavaScript, responsive web design, UI/UX design.</p>
+                <ul>
+                    <li><strong>Security Audit &amp; Risk Assessment</strong> — Conducted a full internal security audit using NIST-based frameworks; identified security gaps, risks, and control weaknesses; provided remediation recommendations.</li>
+                    <li><strong>Incident Response Investigation</strong> — Analyzed simulated security incidents using the incident response lifecycle; documented findings, root causes, and mitigation steps; produced structured incident reports.</li>
+                    <li><strong>Network Traffic Analysis (Wireshark / tcpdump)</strong> — Captured and analyzed packet data to identify suspicious activity; investigated anomalies and potential attack patterns.</li>
+                    <li><strong>SIEM Threat Detection (Splunk / Chronicle)</strong> — Investigated security alerts using SIEM platforms; analyzed logs for indicators of compromise (IOCs); practiced threat detection and response workflows.</li>
+                    <li><strong>Linux Security &amp; Log Analysis</strong> — Used the Linux CLI for system monitoring; managed file permissions and analyzed system logs; supported basic security hardening tasks.</li>
+                    <li><strong>SQL Log Analysis</strong> — Queried databases to analyze security-related data; filtered logs to detect suspicious or unauthorized activity.</li>
+                    <li><strong>Python Security Automation</strong> — Developed Python scripts to automate security tasks; parsed and analyzed log data programmatically.</li>
+                    <li><strong>Threat Modeling &amp; Risk Analysis</strong> — Identified assets, threats, and vulnerabilities; evaluated risk levels and prioritized mitigation strategies.</li>
+                    <li><strong>Detection &amp; Response Workflow (IDS/SIEM)</strong> — Practiced alert triage, escalation, and response processes; worked with IDS tools including Suricata.</li>
+                    <li><strong>Cybersecurity Portfolio &amp; Case Studies</strong> — Compiled a portfolio demonstrating hands-on skills in detection, analysis, and response aligned with entry-level SOC roles.</li>
+                </ul>
+                <p><strong>Skills Demonstrated:</strong> NIST frameworks, incident response, Wireshark, tcpdump, Splunk, Chronicle, Linux CLI, SQL, Python, threat modeling, Suricata, SIEM, IDS, log analysis.</p>
             </div>
+
         </div>
 
         <!-- Certifications Section -->
