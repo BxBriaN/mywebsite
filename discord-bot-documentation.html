@@ -77,63 +77,14 @@
             <th>Type</th>
             <th>Description</th>
         </tr>
-        <tr><td><code>/sb</code></td><td>Slash</td><td>Sends a random image from the bot's <code>images</code> folder</td></tr>
         <tr><td><code>/inv</code></td><td>Slash</td><td>Opens the D&amp;D Party Inventory panel</td></tr>
+        <tr><td><code>/sb</code></td><td>Slash</td><td>Sends a random image from the bot's <code>images</code> folder</td></tr>
         <tr><td><code>/bx</code></td><td>Slash</td><td>Posts the bxbrian YouTube link</td></tr>
         <tr><td><code>/dudu</code></td><td>Slash</td><td>Posts the dulonkk YouTube link</td></tr>
         <tr><td><code>/sike</code></td><td>Slash</td><td>Sends a playful message</td></tr>
         <tr><td><code>!info</code></td><td>Prefix</td><td>Displays the current server name</td></tr>
         <tr><td><code>!poll</code></td><td>Prefix</td><td>Creates a reaction-based poll</td></tr>
     </table>
-
-    <h2>Commands and Usage</h2>
-
-    <h3>Rotating Status Messages</h3>
-    <p>
-        The bot automatically rotates its status every 5 seconds using a background task loop. No user interaction is needed — it starts automatically when the bot comes online.
-    </p>
-    <pre><code>@tasks.loop(seconds=5)
-async def change_status():
-    await bot.change_presence(activity=discord.Game(random.choice(statuses)))</code></pre>
-
-    <h3><code>/sb</code> — Random Image</h3>
-    <p>
-        Picks a random file from the bot's local <code>images</code> directory and sends it in the channel. If the folder is empty, the bot replies with an ephemeral error message only visible to the user.
-    </p>
-    <pre><code>@bot.tree.command(name="sb", description="Send a random image from the 'images' folder.")
-async def send_image(interaction: discord.Interaction):
-    image_dir = 'images'
-    images = os.listdir(image_dir)
-    if not images:
-        await interaction.response.send_message('No images found.', ephemeral=True)
-        return
-    image_file = random.choice(images)
-    image_path = os.path.join(image_dir, image_file)
-    await interaction.response.send_message(file=discord.File(image_path))</code></pre>
-
-    <h3><code>!poll</code> — Reaction Poll</h3>
-    <p>
-        Creates a poll with ✅/❌ reactions. Supports a plain yes/no poll or two custom options. The command also purges the user's original message to keep the channel clean.
-    </p>
-    <p><strong>Usage:</strong></p>
-    <ul>
-        <li>Yes/No: <code>!poll "Is this bot useful?"</code></li>
-        <li>Custom options: <code>!poll "Best game?" "Minecraft" "Terraria"</code></li>
-        <li>One custom option: <code>!poll "Go out?" "Yes" </code> — uses "No" as the second option automatically</li>
-    </ul>
-    <pre><code>@bot.command()
-async def poll(ctx, question, option1=None, option2=None):
-    await ctx.channel.purge(limit=1)
-    if option1 is None and option2 is None:
-        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = No**")
-    elif option1 is not None and option2 is None:
-        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = No**")
-    elif option1 is None and option2 is not None:
-        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = {option2}**")
-    else:
-        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = {option2}**")
-    await message.add_reaction('❌')
-    await message.add_reaction('✅')</code></pre>
 
     <h2>D&amp;D Party Inventory System (<code>/inv</code>)</h2>
     <p>
@@ -195,6 +146,55 @@ async def poll(ctx, question, option1=None, option2=None):
     "987654321": 75
   }
 }</code></pre>
+
+    <h2>Commands and Usage</h2>
+
+    <h3>Rotating Status Messages</h3>
+    <p>
+        The bot automatically rotates its status every 5 seconds using a background task loop. No user interaction is needed — it starts automatically when the bot comes online.
+    </p>
+    <pre><code>@tasks.loop(seconds=5)
+async def change_status():
+    await bot.change_presence(activity=discord.Game(random.choice(statuses)))</code></pre>
+
+    <h3><code>/sb</code> — Random Image</h3>
+    <p>
+        Picks a random file from the bot's local <code>images</code> directory and sends it in the channel. If the folder is empty, the bot replies with an ephemeral error message only visible to the user.
+    </p>
+    <pre><code>@bot.tree.command(name="sb", description="Send a random image from the 'images' folder.")
+async def send_image(interaction: discord.Interaction):
+    image_dir = 'images'
+    images = os.listdir(image_dir)
+    if not images:
+        await interaction.response.send_message('No images found.', ephemeral=True)
+        return
+    image_file = random.choice(images)
+    image_path = os.path.join(image_dir, image_file)
+    await interaction.response.send_message(file=discord.File(image_path))</code></pre>
+
+    <h3><code>!poll</code> — Reaction Poll</h3>
+    <p>
+        Creates a poll with ✅/❌ reactions. Supports a plain yes/no poll or two custom options. The command also purges the user's original message to keep the channel clean.
+    </p>
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Yes/No: <code>!poll "Is this bot useful?"</code></li>
+        <li>Custom options: <code>!poll "Best game?" "Minecraft" "Terraria"</code></li>
+        <li>One custom option: <code>!poll "Go out?" "Yes" </code> — uses "No" as the second option automatically</li>
+    </ul>
+    <pre><code>@bot.command()
+async def poll(ctx, question, option1=None, option2=None):
+    await ctx.channel.purge(limit=1)
+    if option1 is None and option2 is None:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = No**")
+    elif option1 is not None and option2 is None:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = No**")
+    elif option1 is None and option2 is not None:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = Yes**\n**❌ = {option2}**")
+    else:
+        message = await ctx.send(f"```New poll: \n{question}```\n**✅ = {option1}**\n**❌ = {option2}**")
+    await message.add_reaction('❌')
+    await message.add_reaction('✅')</code></pre>
 
     <h2>Setup &amp; Requirements</h2>
     <ul>
